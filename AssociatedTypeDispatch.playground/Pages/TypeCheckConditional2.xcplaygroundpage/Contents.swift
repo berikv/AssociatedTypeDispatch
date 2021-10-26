@@ -23,7 +23,7 @@ struct PWrapper<T: P> {
     let p: T
     func f() {
         print("Run f() on \(type(of: p))")
-        if p.a is Never { print("done") }
+        if p is S { print("done") }
         else {
             print("Call f() on \(type(of: p.a))")
             PWrapper<T.A>(p: p.a).f()
@@ -31,13 +31,9 @@ struct PWrapper<T: P> {
     }
 }
 
-// This example uses the `type check operator 'is'` to
-// test with an explicit condition if P.A is Never.
-// Alas, testing the type of S.A will retrieve its value,
-// causing a fatalError().
+// This implementation is getting really close.
+// No infinite recursion. P does not require f().
+// The downside is that any type that has `P.A == Never`
+// will crash f() unless f() has a condition to prevent that.
 
 PWrapper(p: R()).f()
-// Run f() on R
-// Call f() on S
-// Run f() on S
-// __lldb_expr_69/TypeCheckConditional.xcplaygroundpage:18: Fatal error: S.a called

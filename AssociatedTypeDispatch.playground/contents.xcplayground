@@ -5,5 +5,6 @@
         <page name='WrappedProtocolDispatch'/>
         <page name='GenericDispatch'/>
         <page name='TypeCheckConditional'/>
+        <page name='TypeCheckConditional2'/>
     </pages>
 </playground>
